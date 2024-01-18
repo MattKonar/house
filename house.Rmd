@@ -8,14 +8,20 @@ date: "2024-01-09"
 library(fredr) # library with fred api
 library(quantmod) #library to do cool time series stuff
 library(tseries) #library to do cool time series stuff
+library(tidyverse)
+#run code below if u do not have packages installed
+#install.packages(c("fredr","quantmod","tseries","tidyverse"))
+df <- read.csv("calmedhome.csv")
+
 key <- "d7624a71c19e48320a6bb261ed2dce04"
 fredr_set_key(key)
 ```
 
 ```{r}
-date <- med_time_on_market$date #gets dates
+
 
 med_time_on_market <- fredr(series_id = "MEDDAYONMARCA") 
+date <- med_time_on_market$date #gets dates
 on_market_value <- data.frame(Date = date, values = med_time_on_market$value)
 
 
