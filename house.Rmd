@@ -1,0 +1,32 @@
+---
+title: "housing"
+output: html_document
+date: "2024-01-09"
+---
+
+```{r setup, include=FALSE}
+library(fredr) # library with fred api
+library(quantmod) #library to do cool time series stuff
+library(tseries) #library to do cool time series stuff
+key <- "d7624a71c19e48320a6bb261ed2dce04"
+fredr_set_key(key)
+```
+
+```{r}
+date <- med_time_on_market$date #gets dates
+
+med_time_on_market <- fredr(series_id = "MEDDAYONMARCA") 
+on_market_value <- data.frame(Date = date, values = med_time_on_market$value)
+
+
+list_price <- fredr(series_id = "MEDLISPRICA")
+list_price_value <- data.frame(Date = date, value = list_price$value)
+
+```
+
+```{r}
+adf.test(list_price$value)
+
+adf.test(on_market_value$value)
+
+```
